@@ -1,11 +1,6 @@
 {
   "configs": [
     {
-      "id": "1c90be12-2a93-11e5-b345-feff819cdc9f",
-      "name": "slack_hook",
-      "value": "/services/YOUR/SLACK/HOOKPATH"
-    },
-    {
       "id": "2c90be12-2a93-11e5-b345-feff819cdc9f",
       "name": "ml_per_day",
       "value": "350"
