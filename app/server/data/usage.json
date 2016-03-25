@@ -1,0 +1,28 @@
+{
+  "usage": [
+    {
+      "user": "adminuser",
+      "date": "Thursday, September 10, 2015",
+      "amount": 19.89795918367347,
+      "id": "ffd87dc4-9a32-4b44-b5e0-5b8baa05898a"
+    },
+    {
+      "user": "adminuser",
+      "date": "Thursday, September 24, 2015",
+      "amount": 149.65986394557825,
+      "id": "41e6daea-1186-4bf1-ab72-1e93ce10c76a"
+    },
+    {
+      "id": "e4ac4db0-e2ca-4d79-9318-359d8b46ae93",
+      "user": "adminuser",
+      "date": "Monday, January 04, 2016",
+      "amount": 154.25170068027214
+    },
+    {
+      "id": "c5330353-b8b9-4ef6-bca9-c85b5816d392",
+      "user": "adminuser",
+      "date": "Tuesday, January 05, 2016",
+      "amount": 151.70068027210883
+    }
+  ]
+}

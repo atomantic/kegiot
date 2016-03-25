@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "name": "Default Admin",
+      "id": "adminuser",
+      "code": "023032303036443634454445360a",
+      "roles": [
+        "admin",
+        "member"
+      ],
+      "expires": "2060/01/01"
+    }
+  ]
+}

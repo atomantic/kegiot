@@ -1,0 +1,22 @@
+h2 Users
+.grid
+    .row.actions
+        .search
+        .btn-group.pull-right
+            button.btn.btn-primary.showForm(type='button', data-toggle='modal', data-target='#createUser') New User
+
+    .row
+        #user-grid
+
+#createUser.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createUser')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Add User
+          .modal-body
+
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-primary#saveUser(type='button') Save

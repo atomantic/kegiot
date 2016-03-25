@@ -1,0 +1,29 @@
+h2 System Configs
+.grid
+    .row.actions
+        .search
+        .btn-group.pull-right
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#createConfig') New Config
+
+    .row
+        #config-grid
+
+#createConfig.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createConfig')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Add Config
+          .modal-body
+            form
+              .form-group
+                label(for='config_name') Config Name
+                input#keg_name.form-control(type='text', placeholder='some_var')
+              .form-group
+                label(for='config_beer') Config Value
+                input#keg_beer.form-control(type='text', placeholder='some_value')
+
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-primary#saveConfig(type='button') Save

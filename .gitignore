@@ -1,0 +1,6 @@
+app/public
+app/node_modules
+*.idea
+app/.publish
+*.log
+app/server_old

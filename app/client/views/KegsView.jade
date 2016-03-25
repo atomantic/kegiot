@@ -1,0 +1,32 @@
+h2 Kegs
+.grid
+    .row.actions
+        .search
+        .btn-group.pull-right
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#createKeg') New Keg
+
+    .row
+        #keg-grid
+
+#createKeg.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createKeg')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Add Keg
+          .modal-body
+            form
+              .form-group
+                label(for='keg_name') Keg Name
+                input#keg_name.form-control(type='text', placeholder='Mr. Green')
+              .form-group
+                label(for='keg_beer') Beer
+                input#keg_beer.form-control(type='text', placeholder='Winter Brew')
+              .form-group
+                label(for='keg_volume') Volume (milliliters)
+                input#keg_volume.form-control(type='text', placeholder='18927')
+
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-primary#saveKeg(type='button') Save

@@ -1,0 +1,59 @@
+{
+  "configs": [
+    {
+      "id": "1c90be12-2a93-11e5-b345-feff819cdc9f",
+      "name": "slack_hook",
+      "value": "/services/YOUR/SLACK/HOOKPATH"
+    },
+    {
+      "id": "2c90be12-2a93-11e5-b345-feff819cdc9f",
+      "name": "ml_per_day",
+      "value": "350"
+    },
+    {
+      "id": "2c90c1be-2a93-11e5-b345-feff819cdc9f",
+      "name": "ml_per_pour",
+      "value": 150
+    },
+    {
+      "id": "2c90c1bf-2a93-11e5-b345-feff819cdc9f",
+      "name": "require_auth",
+      "value": true
+    },
+    {
+      "id": "4ad0fcbb-0c32-4b8e-b497-ab9b060881e9",
+      "name": "start_hour_allowed",
+      "value": "12"
+    },
+    {
+      "id": "8su1fcbb-0c32-4b8e-b497-ab9b069181u7",
+      "name": "stop_hour_allowed",
+      "value": 1
+    },
+    {
+      "id": "4ccbb176-cab0-4cf3-9663-9d2a982b5d03",
+      "name": "iface",
+      "value": "eth0"
+    },
+    {
+      "id": "7d6860fb-1911-4d0c-a65f-7d7a022f6935",
+      "name": "min_temp",
+      "value": 20
+    },
+    {
+      "id": "183cd718-963a-48fd-8f00-16f94a54c3b0",
+      "name": "max_temp",
+      "value": "58"
+    },
+    {
+      "id": "193cd718-963a-48fd-8f00-16f94a54c3b0",
+      "name": "session_service",
+      "value": ""
+    },
+    {
+      "id": "194cd718-963a-48fd-8f00-16f94a54c3b0",
+      "name": "session_cookie_name",
+      "value": "auth"
+    }
+  ]
+}

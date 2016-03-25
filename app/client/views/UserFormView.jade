@@ -1,0 +1,27 @@
+form
+  .form-group
+    label(for='user_id') User ID
+    input#user_id.form-control(type='text', placeholder='SMITJ001', value!='<%= id %>')
+  .form-group
+    label(for='user_name') Name
+    input#user_name.form-control(type='text', placeholder='Jane Smith', value!='<%= name %>')
+  .form-group
+    label(for='user_code') RFID Code
+    input#user_code.form-control(type='text', placeholder='', value!='<%= code %>')
+  .form-group
+    label(for='user_expires') Expiration
+    input#user_expires.form-control(type='text', placeholder='2016/02/15', value!='<%= expires %>')
+  .form-group.form-control
+    label Roles:
+    <% if(_.contains(roles, 'admin')) { %>
+    input#user_admin(type='checkbox', name='roles', checked='checked', value='admin')
+    <%}else{%>
+    input#user_admin(type='checkbox', name='roles', value='admin')
+    <%}%>
+    | Admin
+    <% if(_.contains(roles, 'member')) { %>
+    input#user_member(type='checkbox', name='roles', checked='checked', value='member')
+    <%}else{%>
+    input#user_member(type='checkbox', name='roles', value='member')
+    <%}%>
+    | Member

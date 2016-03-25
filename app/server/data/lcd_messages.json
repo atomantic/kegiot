@@ -1,0 +1,40 @@
+{
+  "greetings": [
+    "Kegiot Lives!!!",
+    "How can you read this? There are no pictures.",
+    "I'm afraid I've been thinking...",
+    "I only test in PROD!",
+    "VIM for life!!!!",
+    "Death to Emacs!",
+    "You can led a horse to beer...",
+    "Welcome",
+    "Bienveniu",
+    "Bienbenidu",
+    "Aloha",
+    "Salve",
+    "Vitaj",
+    "Bienvenido",
+    "Croeso",
+    "Hello World!"
+  ],
+  "denied": {
+    "expired": "Expired Card",
+    "unauthorized": "Sorry, you are not authorized for beverage access.",
+    "idle_timeout": "Idle timout!",
+    "rate_limited": "One to many. Try later.",
+    "off_hours": "Kegiot is currently closed. Try again later."
+  },
+  "info": {
+    "remaining_today": "You have REMAININGml remaining today"
+  },
+  "authorized": [
+    "Stay thirsty my friend!",
+    "Bottoms up, amigo!",
+    "Cheers!",
+    "lechyd da",
+    "Salute",
+    "Prost",
+    "Salude",
+    "Kanpai"
+  ]
+}

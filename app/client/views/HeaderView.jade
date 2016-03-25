@@ -1,0 +1,22 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#') Kegiot
+    #navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav.navbar-right
+        li.home-menu
+          a(href='#') Dashboard
+        li.admin-menu.admin
+          a(href='#admin/users') Admin
+        li.loginout-menu
+          a
+            span.authed Logout
+            span.anon Login
+        li.authed
+          #user-avatar
+            img.img-circle(src="img/default_avatar.jpg")

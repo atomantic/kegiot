@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+###########################################
+# This is the project's developer toolkit #
+# @author Adam Eivy                       #
+###########################################
+
+###
+# echo helper functions
+###
+# Colors
+ESC_SEQ="\x1b["
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
+COL_GREEN=$ESC_SEQ"32;01m"
+COL_YELLOW=$ESC_SEQ"33;01m"
+
+function ok() {
+    echo -e "$COL_GREEN[ok]$COL_RESET "$1
+}
+
+function bot() {
+    echo
+    echo -e "$COL_GREEN\[._.]/$COL_RESET - "$1
+}
+
+function running() {
+    echo
+    echo -en " ⇒ "$1"..."
+}
+
+function action() {
+    echo -e "$COL_YELLOW[action]$COL_RESET"
+    echo -en " ⇒ "$1"..."
+}
+
+function error() {
+    echo -e "$COL_RED[error]$COL_RESET "$1
+}
+
+case "$1" in
+    init)
+        echo "initializing dev environment..."
+
+        running "checking homebrew"
+        brew_bin=$(which brew) 2>&1 > /dev/null
+        if [[ $? != 0 ]]; then
+            action "installing homebrew"
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+            if [[ $? != 0 ]]; then
+                error "unable to install homebrew, script $0 abort!"
+                exit -1
+            fi
+        fi
+        ok
+
+        running "looking for node"
+        which node
+        if [[ $? != 0 ]]; then
+            action "brew install node"
+            brew install node
+            if [[ $? != 0 ]]; then
+                error "failed to install node! aborting..."
+                exit -1
+            fi
+        fi
+        ok
+        # build tool and package maintainer
+        bot "installing global npm build tools"
+        npm install -g gulp npm-check bower
+        running "npm install && bower install"
+        # install node and bower modules for the project
+        cd app
+        npm install && bower install
+        ok
+        bot "starting up with gulp..."
+        gulp;
+        ;;
+    *)
+        echo -e "Run each as an argument to this script (e.g. './dev init'):\n"
+        echo "init - initialize your development environment (installs node.js, etc)"
+        ;;
+esac

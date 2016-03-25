@@ -1,0 +1,32 @@
+Partlist
+
+Exported from SolenoidControl.sch at 12/18/14 9:45 AM
+
+EAGLE Version 7.1.0 Copyright (c) 1988-2014 CadSoft
+
+Assembly variant: 
+
+Part     Value          Device        Package  Library        Sheet
+
+CTL_A                   2,15/1,0      2,15/1,0 wirepad        1
+CTL_B                   2,15/1,0      2,15/1,0 wirepad        1
+D1       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+D2       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+D3       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+D4       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+D5       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+D6       1N4148DO35-10  1N4148DO35-10 DO35-10  diode          1
+GND_3V                  2,15/1,0      2,15/1,0 wirepad        1
+GND_12V                 2,15/1,0      2,15/1,0 wirepad        1
+LD_BLK                  2,15/1,0      2,15/1,0 wirepad        1
+LD_RED                  2,15/1,0      2,15/1,0 wirepad        1
+PWR      12V            2,15/1,0      2,15/1,0 wirepad        1
+Q1                  IRFNL210BTA_FP001 TO-92    transistor-fet 1
+Q2                  IRFNL210BTA_FP001 TO-92    transistor-fet 1
+Q3                  IRFNL210BTA_FP001 TO-92    transistor-fet 1
+Q4                  IRFNL210BTA_FP001 TO-92    transistor-fet 1
+R1       5_OHM          R-US_0207/12  0207/12  resistor       1
+R2       1K             R-US_0207/12  0207/12  resistor       1
+R3       1K             R-US_0207/12  0207/12  resistor       1
+R4       20_OHM         R-US_0207/12  0207/12  resistor       1
+R5       20_OHM         R-US_0207/12  0207/12  resistor       1

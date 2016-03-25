@@ -1,0 +1,10 @@
+{
+  "kegs": [
+    {
+      "id": "e3a78fda-b945-4256-af3f-f878d356901c",
+      "name": "Seattle Ladies Brew",
+      "beer": "Amber Ale",
+      "volume": "13984"
+    }
+  ]
+}

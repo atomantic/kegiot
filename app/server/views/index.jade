@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black-translucent')
+    title Kegiot
+    link(rel=' shortcut icon', type='image/ico', href='img/icon.jpg')
+    link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='lib/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='lib/nvd3/build/nv.d3.min.css')
+    link(rel='stylesheet', href='lib/prism/themes/prism-twilight.css')
+    link(rel='stylesheet', href='lib/backgrid/lib/backgrid.min.css')
+    link(rel='stylesheet', href='lib/backgrid-filter/backgrid-filter.min.css')
+    link(rel='stylesheet', href='lib/backgrid-select2-cell/backgrid-select2-cell.min.css')
+    link(rel='stylesheet', href='css/client.css')
+  body.isAdmin.isAuthed
+    .header
+    .container
+        .row
+            #content.span12
+
+    #errorModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='errorModal')
+          .modal-dialog(role='document')
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') ×
+                h4.modal-title Error
+              .modal-body
+
+              .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') OK
+
+    script(type='text/javascript').
+      window.configs = !{config};
+
+    script(type='text/javascript', src='socket.io/socket.io.js')
+    script(type='text/javascript', src='js/libs.js')
+    script(type='text/javascript', src='js/build.js')
