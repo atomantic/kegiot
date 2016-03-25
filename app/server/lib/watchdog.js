@@ -5,7 +5,6 @@
  * @author Brandon Kite
  */
 var https = require('https');
-var common = require('./common');
 
 /**
  * Creates a watchdog task that sends notifications to Slack when triggered
@@ -25,7 +24,7 @@ function watchdog(name, params) {
   var options = {
     host: 'hooks.slack.com',
     port: 443,
-    path: common.getConfig('slack_hook'),
+    path: process.env.SLACKHOOK,
     method: 'POST'
   };
   var lastBarked = null;

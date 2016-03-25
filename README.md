@@ -37,7 +37,7 @@ If you add auth:
 * enable any place in the code where you find `authLib` (replace with auth solution)
 
 ## Slack notifications
-You will need to supply your own slack hook URL in the configs before the slack notification will work
+You will need to supply your own slack hook URL as an env `SLACKHOOK` if you want the watchdog to notify temperature and keg volume limits as well as broadcast the location of the admin UI.
 
 ## Beagle Bone Black
 
