@@ -160,9 +160,12 @@ case "$1" in
       ssh $kegiot_USER@$kegiot_IP 'npm install -g forever'
       ok
       action 'setting up environment'
-      ssh $kegiot_USER@$kegiot_IP "export USBPATH=$(lsusb | grep -i 'Future Technology Devices' | cut -d' ' -f 2,4 | cut -d':' -f 1 | sed 's/ /\//')"
-      ssh $kegiot_USER@$kegiot_IP "export USBDEVICEID=$(dmesg | grep tty | grep "FTDI USB Serial" | tail -1 | grep -oE '[^ ]+$')"
       ssh $kegiot_USER@$kegiot_IP "export MODE=BBB"
+      read -r -p "Do you have the USB RFID reader plugged in? [y|N] " response
+      if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        ssh $kegiot_USER@$kegiot_IP "export USBPATH=$(lsusb | grep -i 'Future Technology Devices' | cut -d' ' -f 2,4 | cut -d':' -f 1 | sed 's/ /\//')"
+        ssh $kegiot_USER@$kegiot_IP "export USBDEVICEID=$(dmesg | grep tty | grep "FTDI USB Serial" | tail -1 | grep -oE '[^ ]+$')"
+      fi
       ok
       action 'installing codebase'
       ssh $kegiot_USER@$kegiot_IP 'mkdir -p /opt/kegiot/app'
