@@ -16,7 +16,7 @@ The creator of this codebase assumes no responsibility for stolen beverages.
 
 # Developer Getting Started
 Assumes you are on OSX (yeah, we are opinionated).
-You don't need to have a Beagle Bone Black connected to just run the app and test it.
+You don't need to have a Beagle Bone Black connected to just run the app and test it. The app will mock all hardware interfaces.
 
 ```
 # fork it
@@ -42,35 +42,13 @@ You will need to supply your own slack hook URL as an env `SLACKHOOK` if you wan
 ## Beagle Bone Black
 
 1. Plugin an ethernet cable and USB
-2. SSH into the BBB
+2. Run the BBB install script
 ```
-# yeah, you should change to a real user from root, but assuming you just unboxed it
-# and can handle that on your own:
-ssh root@192.168.7.2
+./dev install
 ```
-3. Update/Install software
+3. Deploy the code
 ```
-apt-get update
-npm install -g forever bower gulp
-ssh-keygen
-cat ~/.ssh/id_rsa.pub
-# paste this into the deploy keys for the kegiot project
-cd /opt
-git clone git@github.com:atomantic/kegiot.git
-cd app;
-npm install --production && bower install --allow-root
-forever stopall
-export USBPATH=$(lsusb | grep -i 'Future Technology Devices' | cut -d' ' -f 2,4 | cut -d':' -f 1 | sed 's/ /\//')
-export USBDEVICEID=$(dmesg | grep tty | grep "FTDI USB Serial" | tail -1 | grep -oE '[^ ]+$');
-export MODE=BBB
-forever start server/app.js
-forever logs 0
-```
-
-### restart
-```
-cd /opt/kegiot/app
-forever stopall; rm -rf /root/.forever/*.log; MODE='BBB' forever start server/app.js; tail -f /root/.forever/*.log
+./dev deploy
 ```
 
 ## Deploy to the Bone branch
@@ -79,6 +57,8 @@ in order to allow the Beagleboard to not have to install gulp, sass, etc and bui
 gulp deploy
 ```
 After that, we can `git pull` on the Beagleboard and we've got the built UI.
+This assumes you went through and installed git, created an ssh key on the board (if needed) and deployed the whole codebase via git.
+Alternatively, you can use the `dev` script to continue to deploy partial code without rebuilds or git.
 
 ## Guides
 http://elinux.org/Beagleboard:BeagleBoneBlack_Debian

@@ -38,46 +38,106 @@ function error() {
     echo -e "$COL_RED[error]$COL_RESET "$1
 }
 
+function restartBBB(){
+  action 'restarting'
+  ssh $kegiot_USER@$kegiot_IP 'forever stopall; rm -rf /root/.forever/*.log; MODE=BBB forever start /opt/kegiot/app/server/app.js';
+  ok
+}
+
+if [[ -z $kegiot_IP ]];then
+  kegiot_IP=192.168.7.2
+fi
+if [[ -z $kegiot_USER ]];then
+  kegiot_USER=root
+fi
+
 case "$1" in
     init)
-        echo "initializing dev environment..."
+      echo "initializing dev environment..."
 
-        running "checking homebrew"
-        brew_bin=$(which brew) 2>&1 > /dev/null
-        if [[ $? != 0 ]]; then
-            action "installing homebrew"
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-            if [[ $? != 0 ]]; then
-                error "unable to install homebrew, script $0 abort!"
-                exit -1
-            fi
-        fi
-        ok
+      running "checking homebrew"
+      brew_bin=$(which brew) 2>&1 > /dev/null
+      if [[ $? != 0 ]]; then
+          action "installing homebrew"
+          ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          if [[ $? != 0 ]]; then
+              error "unable to install homebrew, script $0 abort!"
+              exit -1
+          fi
+      fi
+      ok
 
-        running "looking for node"
-        which node
-        if [[ $? != 0 ]]; then
-            action "brew install node"
-            brew install node
-            if [[ $? != 0 ]]; then
-                error "failed to install node! aborting..."
-                exit -1
-            fi
-        fi
-        ok
-        # build tool and package maintainer
-        bot "installing global npm build tools"
-        npm install -g gulp npm-check bower
-        running "npm install && bower install"
-        # install node and bower modules for the project
-        cd app
-        npm install && bower install
-        ok
-        bot "starting up with gulp..."
-        gulp;
-        ;;
+      running "looking for node"
+      which node
+      if [[ $? != 0 ]]; then
+          action "brew install node"
+          brew install node
+          if [[ $? != 0 ]]; then
+              error "failed to install node! aborting..."
+              exit -1
+          fi
+      fi
+      ok
+      # build tool and package maintainer
+      bot "installing global npm build tools"
+      npm install -g gulp npm-check bower
+      running "npm install && bower install"
+      # install node and bower modules for the project
+      cd app
+      npm install && bower install
+      ok
+      bot "starting up with gulp..."
+      gulp;
+      ;;
+    deploy)
+
+      action 'deploying code onto BBB'
+      scp -r app/server/app.js $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
+      scp -r app/server/lib $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
+      scp -r app/server/api $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
+      scp -r app/server/views $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
+      scp -r app/public/css $kegiot_USER@$kegiot_IP:/opt/kegiot/app/public;
+      scp -r app/public/img $kegiot_USER@$kegiot_IP:/opt/kegiot/app/public;
+      scp -r app/public/js $kegiot_USER@$kegiot_IP:/opt/kegiot/app/public;
+      scp -r app/public/lib $kegiot_USER@$kegiot_IP:/opt/kegiot/app/public;
+      scp -r app/public/views $kegiot_USER@$kegiot_IP:/opt/kegiot/app/public;
+      ok
+      bot 'NOTE: this is a limited set (we did not do a new bower install or npm install, or transfer all of those files)'
+      restartBBB
+      ;;
+    install)
+      bot 'running first time setup on BBB'
+      action 'ensuring you have run npm install and bower install'
+      cd app
+      npm install && bower install
+      cd -
+      ok
+      bot 'TODO: create non-root user and run packages as that user!'
+      action 'updating BBB apt-get packages'
+      ssh $kegiot_USER@$kegiot_IP 'apt-get update'
+      ok
+      action 'installing forever'
+      ssh $kegiot_USER@$kegiot_IP 'npm install -g forever'
+      ok
+      action 'setting up environment'
+      ssh $kegiot_USER@$kegiot_IP "export USBPATH=$(lsusb | grep -i 'Future Technology Devices' | cut -d' ' -f 2,4 | cut -d':' -f 1 | sed 's/ /\//')"
+      ssh $kegiot_USER@$kegiot_IP "export USBDEVICEID=$(dmesg | grep tty | grep "FTDI USB Serial" | tail -1 | grep -oE '[^ ]+$')"
+      ssh $kegiot_USER@$kegiot_IP "export MODE=BBB"
+      ok
+      action 'installing codebase'
+      ssh $kegiot_USER@$kegiot_IP 'mkdir -p /opt/kegiot/app'
+      scp -r app/* $kegiot_USER@$kegiot_IP:/opt/kegiot/app/;
+      ok
+      restartBBB
+      ;;
+    restart)
+      restartBBB
+      ;;
     *)
-        echo -e "Run each as an argument to this script (e.g. './dev init'):\n"
-        echo "init - initialize your development environment (installs node.js, etc)"
-        ;;
+      echo -e "Run each as an argument to this script (e.g. './dev init'):\n"
+      echo "init - initialize your development environment (installs node.js, etc)"
+      echo "install - install and setup BBB for the first time"
+      echo "deploy - deploy code to the BBB and restart service"
+      echo "restart - restart service on BBB"
+      ;;
 esac
