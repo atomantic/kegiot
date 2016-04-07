@@ -90,7 +90,6 @@ case "$1" in
       gulp;
       ;;
     deploy)
-
       action 'deploying code onto BBB'
       scp -r app/server/app.js $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
       scp -r app/server/lib $kegiot_USER@$kegiot_IP:/opt/kegiot/app/server/;
@@ -107,6 +106,47 @@ case "$1" in
       ;;
     install)
       bot 'running first time setup on BBB'
+      bot 'You will need to install all the drivers in Step 2 on the BBB guide: https://beagleboard.org/getting-started'
+      read -r -p "Have you finished that? [y|N] " response
+      if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        bot 'do that, then run this again. opening the website for you...'
+        open https://beagleboard.org/getting-started
+        exit 1;
+      fi
+      read -r -p "Have you plugged in the BBB? [y|N] " response
+      if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        bot 'well, plug it in!'
+        read -r -p "Did you? [y|N] " response
+        if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+          bot 'ok, look, just do this again when you are ready!'
+          exit 2;
+        fi
+        exit 2;
+      fi
+      action 'testing that we can reach BBB'
+      curl $kegiot_IP > /dev/null 2>&1
+      if [[ $? != 0 ]]; then
+        error "failed to curl BBB. Trying again in 5 seconds..."
+        sleep 5
+        curl $kegiot_IP
+        if [[ $? != 0 ]]; then
+          error "looks like we cannot reach the BBB"
+          exit 3
+        fi
+      fi
+      ok
+      bot 'You will need to ssh into the BBB for the first time to accept the cert: ssh root@192.169.7.2'
+      read -r -p "Have you done this in another terminal? [y|N] " response
+      if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        bot 'do it, please!'
+        exit 4;
+      fi
+      bot 'You will need to plug in an ethernet cable.'
+      read -r -p "Have you done this? [y|N] " response
+      if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        bot 'do it, please!'
+        exit 5;
+      fi
       action 'ensuring you have run npm install and bower install'
       cd app
       npm install && bower install
