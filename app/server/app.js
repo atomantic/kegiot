@@ -50,7 +50,6 @@ app.use(function(req, res, next) {
     configs[c.name] = c.value;
   });
   res.locals.config = JSON.stringify(configs);
-  res.locals.defaultUser = JSON.stringify(configs);
   next();
 });
 app.use('/', require('./api/index'));
@@ -93,20 +92,10 @@ app.post('/api/restart', common.requireAdmin, require('./api/restart'));
 app.get('/api/test', require('./api/test'));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+app.use(reqiure('./lib/app.404');
 
 // error handlers
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.send({
-    message: err.message,
-    error: err
-  });
-});
+app.use(require('./lib/app.error'));
 
 /**
  * Default to close value at start to be safe
@@ -129,14 +118,7 @@ var io = require('socket.io')(server);
 server.listen(port);
 
 server.on('error', require('./lib/server.error'));
-
-server.on('listening', function() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-});
+server.on('listening', require('./lib/server.listening'));
 
 setInterval(function() {
   temperature.readTemperature(function(data) {
