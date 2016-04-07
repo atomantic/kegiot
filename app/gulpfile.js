@@ -50,7 +50,7 @@ gulp.task('jslibs', function() {
       'public/lib/lodash/dist/lodash.min.js',
       'public/lib/backbone/backbone-min.js',
       'public/lib/nvd3/build/nv.d3.min.js',
-      'public/lib/backgrid/lib/backgrid.min.js',
+      'public/lib/backgrid/lib/backgrid.js',
       'public/lib/backgrid-filter/backgrid-filter.min.js',
       'public/lib/backgrid-select2-cell/backgrid-select2-cell.min.js',
       'public/lib/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
