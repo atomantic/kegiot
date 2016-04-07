@@ -54,6 +54,7 @@ gulp.task('jslibs', function() {
       'public/lib/backgrid-filter/backgrid-filter.min.js',
       'public/lib/backgrid-select2-cell/backgrid-select2-cell.min.js',
       'public/lib/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
+      'public/lib/bs-confirmation/bootstrap-confirmation.js',
       'public/lib/undermore/bin/undermore.js',
       'public/lib/undermore/src/$.build.js'
     ])

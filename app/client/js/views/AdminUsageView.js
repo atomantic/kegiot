@@ -23,7 +23,7 @@ App.views.AdminUsageView = Backbone.View.extend({
       name: 'actions',
       label: 'Actions',
       editable: false,
-      cell: App.views.ActionsCellView
+      cell: App.views.DeleteCellView
     }
     ];
 

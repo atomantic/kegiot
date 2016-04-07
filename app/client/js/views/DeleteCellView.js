@@ -3,9 +3,17 @@ App.views.DeleteCellView = Backgrid.Cell.extend({
     events: {
       "click": "deleteRow"
     },
-    deleteRow: function (e) {
-      e.preventDefault();
-      this.model.collection.remove(this.model).destroy();
+    deleteRow: function(e) {
+      var view = this;
+      $(e.currentTarget).confirmation({
+        singleton: true,
+        placement: 'top',
+        onConfirm: function(e) {
+          e.preventDefault();
+          view.model.collection.remove(view.model).destroy();
+        }
+      });
+      $(e.currentTarget).confirmation('toggle');
     },
     render: function () {
         this.$el.html(this.template());
