@@ -2,7 +2,7 @@
   "name": "kegiot",
   "version": "1.0.0",
   "description": "Kegiot",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
     "start": "node ./server/app.js",
     "test": "node_modules/mocha/bin/mocha --recursive"

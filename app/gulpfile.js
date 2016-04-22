@@ -100,10 +100,7 @@ gulp.task('serverfiles', function() {
 });
 
 gulp.task('app', function() {
-  var app = require('./server/app');
-//app.use(express.static(path.resolve('./public')));
-//app.listen(4337);
-//gutil.log('Listening on port: 4337');
+  require('./server/app');
 });
 
 gulp.task('watch', function() {
