@@ -21,6 +21,8 @@
     "new-cap": 0,
     "no-extend-native": 0,
     "no-multi-spaces": 0,
+    "no-undef": 2,
+    "no-unused-vars": 2,
     "space-infix-ops": 0,
     "strict": 0
   }

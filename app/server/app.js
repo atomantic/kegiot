@@ -13,13 +13,10 @@ var config = require('./data/configs');
 var flowmeter = require('./lib/flowmeter');
 var lcd = require('./lib/lcd');
 var lcd_msg = require('./lib/lcd_msg');
-var network = require('./lib/network');
 var rateLimit = require('./lib/rate_limit');
 var rfid = require('./lib/rfid');
 var temperature = require('./lib/temperature');
-// var usb = require('./lib/usb');
 var valve = require('./lib/valve');
-var watchdog = require('./lib/watchdog');
 
 lcd.clear();
 lcd.print("App configuring", null);
@@ -225,156 +222,11 @@ rfid.onUserScan(function(user) {
 lcd.clear();
 lcd.print("Starting watchdogs", null);
 
-watchdog.watchdog('networkIP', {
-  monitor: function(callback) {
-    var configs = common.db.configs;
-    var iface = configs.find({
-      name: 'iface'
-    }).value;
-
-    if (iface === null || iface === undefined) {
-      console.log('Malformed or missing iface configuration setting.');
-      return;
-    }
-
-    var ip = network.getIPv4(iface);
-    if (ip === null || ip === undefined) {
-      console.log('Unable to find IP address for network IFACE: ' + iface);
-      return;
-    }
-
-    if (network.isNewIP(network.getIPv4, iface)) {
-      console.log("New IP [" + ip + "] for IFACE " + iface);
-      network.saveIP(iface, ip);
-      callback("Kegiot is running at http://" + ip + ":" + port);
-    }
-  },
-  pollPeriod: 10000
-});
-
-watchdog.watchdog('temperature', {
-  monitor: function(callback) {
-    var configs = common.db.configs;
-    var min_temp = configs.find({
-      name: 'min_temp'
-    }).value;
-    var max_temp = configs.find({
-      name: 'max_temp'
-    }).value;
-
-    if (min_temp === null || min_temp === undefined
-      || max_temp === null || max_temp === undefined) {
-      console.log("Unable to get min and max temperature thresholds.");
-      return;
-    }
-
-    temperature.readTemperature(function(temp) {
-      if (temp < min_temp || temp > max_temp) {
-        console.log("Temp threshold hit at " + temp + "F");
-        callback("Kegiot temperature hit threshold of " + temp + "F");
-      }
-    });
-  },
-  pollPeriod: 60000
-});
-
-var isBeerMsg = true;
-
-watchdog.watchdog('lcd msg', {
-  monitor: function(callback) {
-    var msg = null;
-
-    lcd.clear();
-
-    if (isBeerMsg) {
-      var kegs = common.db.kegs;
-      var keg = kegs.first();
-      var name = keg.name;
-      var beer = keg.beer;
-
-      isBeerMsg = false;
-      msg = 'On tap ' + beer + " by " + name;
-
-      // TODO Remove when temp is back online
-      lcd.clear();
-      lcd.print(msg, null);
-
-    /*
-         // TODO add back when temp sensor back online
-          temperature.readTemperature(function(temp) {
-            lcd.row(0, function() {
-              lcd.print(msg, null);
-            });
-            lcd.row(1, function() {
-              lcd.print('Keg Temp ' + temp + 'F', null);
-            });
-          });
-    */
-    } else {
-      isBeerMsg = true;
-
-      lcd_msg.getDisplayMsg(function(dispMsg) {
-        if (dispMsg.length > 1) {
-          msg = dispMsg[0] + dispMsg[1];
-        } else {
-          msg = dispMsg[0];
-        }
-        lcd.clear();
-        lcd.print(msg, null);
-      });
-    }
-  },
-  pollPeriod: 10000
-});
-
-// watch for USB changing address
-if (process.env.MODE === 'BBB') {
-  var usbPath = process.env.USBPATH;
-  watchdog.watchdog('usb connectivity', {
-    monitor: function(callback) {
-      common.command("lsusb | grep -i 'Future Technology Devices' | cut -d' ' -f 2,4 | cut -d':' -f 1", __dirname, function(err, data) {
-        if (err) {
-          console.log('failed to fetch usb status', err);
-          return;
-        }
-        data = data.replace(' ', '/');
-        if (!usbPath) {
-          usbPath = data;
-          console.log("usb path set to " + usbPath);
-        } else {
-          if (data !== usbPath) {
-            console.warn('usb path changed to', data, 'restarting BBB');
-            common.command('reboot -f');
-          }
-        }
-      });
-    },
-    pollPeriod: 60000
-  });
-}
-
-var kegVolMsgSent = false;
-
-watchdog.watchdog('keg volume', {
-  monitor: function(callback) {
-    var keg_volume = common.db.kegs.first().volume;
-
-    var consumed_volume = common.db.usage.sum(function(obj) {
-      return obj.amount;
-    });
-
-    var ml_remain = keg_volume - consumed_volume;
-    var perc_remain = (ml_remain / keg_volume) * 100;
-    perc_remain = perc_remain.toFixed(2);
-
-    // Make percent remaining configurable or leave at 20%?
-    if (kegVolMsgSent === false && perc_remain <= 20) {
-      kegVolMsgSent = true;
-      callback("Keg volume is running low. Change out soon. Current volume remaing " + ml_remain + " ml, " + perc_remain + "% of keg");
-    }
-  },
-  pollPeriod: 60000
-});
+require('./lib/watchdog.ip')();
+require('./lib/watchdog.temp')();
+require('./lib/watchdog.lcd')();
+require('./lib/watchdog.usb')();
+require('./lib/watchdog.volume')();
 
 /* ************************************************
 // END of WATCH DOGs
