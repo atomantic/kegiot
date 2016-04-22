@@ -42,7 +42,7 @@ module.exports = {
       msg.push(date.toLocaleString());
 
       if (callback && typeof (callback) === "function") {
-        console.log(msg);
+        console.log(msg, temp);
         callback(msg);
       }
     });

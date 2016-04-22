@@ -3,7 +3,7 @@ var lowConfig = {
   storage: require('lowdb/file-sync')
 };
 var path = require('path');
-var request = require('request');
+// var request = require('request');
 var _ = require('./_');
 var exec = require('child_process').exec;
 var dbUsers = low(path.join(__dirname, '../data/users.json'), lowConfig);

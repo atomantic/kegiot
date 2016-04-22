@@ -14,7 +14,7 @@ function runCommand(command, cb) {
       return false;
     }
   }
-  common.command(command, __dirname, function(err, out) {
+  common.command(command, __dirname, function(/*err, out*/) {
     // console.log('lcd: '+command, err, out);
     if (cb && typeof cb === "function") {
       cb();

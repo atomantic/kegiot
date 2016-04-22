@@ -1,4 +1,4 @@
-module.exports = function(err, req, res, next) {
+module.exports = function(err, req, res) {
   res.status(err.status || 500);
   res.send({
     message: err.message,

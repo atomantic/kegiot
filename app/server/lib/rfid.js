@@ -34,7 +34,7 @@ if (process.env.MODE === 'desktop') {
         callback(data.toString('hex'));
       }
     });
-    readableStream.on('close', function(data) {
+    readableStream.on('close', function(/*data*/) {
       console.log('[INFO] RFID module: stream closed. Restarting...');
       common.command('forever restartall');
     });
