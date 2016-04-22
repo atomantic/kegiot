@@ -1,6 +1,6 @@
-var watchdog = require('./lib/watchdog');
-var common = require('./lib/common');
-var temperature = require('./lib/temperature');
+var watchdog = require('./watchdog');
+var common = require('./common');
+var temperature = require('./temperature');
 
 module.exports = function(){
   watchdog.watchdog('temperature', {

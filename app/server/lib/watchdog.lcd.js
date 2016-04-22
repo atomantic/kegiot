@@ -1,8 +1,8 @@
 
-var watchdog = require('./lib/watchdog');
-var common = require('./lib/common');
-var lcd = require('./lib/lcd');
-var lcd_msg = require('./lib/lcd_msg');
+var watchdog = require('./watchdog');
+var common = require('./common');
+var lcd = require('./lcd');
+var lcd_msg = require('./lcd_msg');
 // var temperature = require('./lib/temperature');
 
 var isBeerMsg = true;

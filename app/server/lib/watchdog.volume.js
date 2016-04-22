@@ -1,5 +1,5 @@
-var watchdog = require('./lib/watchdog');
-var common = require('./lib/common');
+var watchdog = require('./watchdog');
+var common = require('./common');
 
 module.exports = function() {
 // only send an alert once per app restart

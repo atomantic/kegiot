@@ -1,7 +1,7 @@
 // watch for USB changing address
 var usbPath = process.env.USBPATH;
-var watchdog = require('./lib/watchdog');
-var common = require('./lib/common');
+var watchdog = require('./watchdog');
+var common = require('./common');
 
 module.exports = process.env.MODE !== 'BBB' ? function(){} : function(){
   watchdog.watchdog('usb connectivity', {

@@ -11,8 +11,6 @@ var dbKegs = low(path.join(__dirname, '../data/kegs.json'), lowConfig);
 var dbUsage = low(path.join(__dirname, '../data/usage.json'), lowConfig);
 var dbConfigs = low(path.join(__dirname, '../data/configs.json'), lowConfig);
 var dbNetwork = low(path.join(__dirname, '../data/network.json'), lowConfig);
-// var sessionCookieName = common.getConfig('session_cookie_name');
-// var sessionService = common.getConfig('session_service');
 var common = {
   db: {
     users: dbUsers('users'),
@@ -51,6 +49,8 @@ var common = {
   requireAdmin: function(req, res, next) {
     next();
 
+  // var sessionCookieName = common.getConfig('session_cookie_name');
+  // var sessionService = common.getConfig('session_service');
   // var sessionCookieName = common.getConfig('session_cookie_name');
   // var err = new Error('Not Authorized');
   // err.status = 401;

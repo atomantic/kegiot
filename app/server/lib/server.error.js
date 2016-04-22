@@ -1,4 +1,4 @@
-var port = process.env.PORT || 4337;
+var port = process.env.PORT || 1337;
 module.exports = function(error) {
   if (error.syscall !== 'listen') {
     throw error;

@@ -1,6 +1,6 @@
-var watchdog = require('./lib/watchdog');
-var common = require('./lib/common');
-var network = require('./lib/network');
+var watchdog = require('./watchdog');
+var common = require('./common');
+var network = require('./network');
 
 module.exports = function(){
   watchdog.watchdog('networkIP', {
@@ -24,7 +24,7 @@ module.exports = function(){
       if (network.isNewIP(network.getIPv4, iface)) {
         console.log("New IP [" + ip + "] for IFACE " + iface);
         network.saveIP(iface, ip);
-        callback("Kegiot is running at http://" + ip + ":" + (process.env.PORT || 4337));
+        callback("Kegiot is running at http://" + ip + ":" + (process.env.PORT || 1337));
       }
     },
     pollPeriod: 10000

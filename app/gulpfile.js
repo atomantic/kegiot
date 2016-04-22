@@ -151,7 +151,7 @@ gulp.task('deploy', function() {
 });
 
 gulp.task('openbrowser', function() {
-  opn('http://localhost:4337');
+  opn('http://localhost:1337');
 });
 
 // Default Task
