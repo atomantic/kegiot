@@ -1,7 +1,6 @@
 // 3rd party modules
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var debug = require('debug')('myapp:server');
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -92,7 +91,7 @@ app.post('/api/restart', common.requireAdmin, require('./api/restart'));
 app.get('/api/test', require('./api/test'));
 
 // catch 404 and forward to error handler
-app.use(reqiure('./lib/app.404');
+app.use(require('./lib/app.404'));
 
 // error handlers
 app.use(require('./lib/app.error'));
@@ -118,7 +117,7 @@ var io = require('socket.io')(server);
 server.listen(port);
 
 server.on('error', require('./lib/server.error'));
-server.on('listening', require('./lib/server.listening'));
+server.on('listening', require('./lib/server.listening')(server));
 
 setInterval(function() {
   temperature.readTemperature(function(data) {
