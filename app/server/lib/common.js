@@ -11,6 +11,8 @@ var dbKegs = low(path.join(__dirname, '../data/kegs.json'), lowConfig);
 var dbUsage = low(path.join(__dirname, '../data/usage.json'), lowConfig);
 var dbConfigs = low(path.join(__dirname, '../data/configs.json'), lowConfig);
 var dbNetwork = low(path.join(__dirname, '../data/network.json'), lowConfig);
+// var sessionCookieName = common.getConfig('session_cookie_name');
+// var sessionService = common.getConfig('session_service');
 var common = {
   db: {
     users: dbUsers('users'),
@@ -55,7 +57,7 @@ var common = {
   // if (!req.cookies[sessionCookieName]) {
   //   return next(err);
   // }
-  // request(common.getConfig('session_service') + req.cookies[sessionCookieName], function(error, response, body) {
+  // request(sessionService + req.cookies[sessionCookieName], function(error, response, body) {
   //   var userId = _.get(JSON.parse(body), 'requester.identifier');
   //   // console.log(userId, db('users').find({id: userId}));
   //   if (!userId && !common.db.users.find({

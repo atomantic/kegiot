@@ -3,7 +3,7 @@
     {
       "id": "2c90be12-2a93-11e5-b345-feff819cdc9f",
       "name": "ml_per_day",
-      "value": "350"
+      "value": 350
     },
     {
       "id": "2c90c1be-2a93-11e5-b345-feff819cdc9f",
@@ -18,7 +18,7 @@
     {
       "id": "4ad0fcbb-0c32-4b8e-b497-ab9b060881e9",
       "name": "start_hour_allowed",
-      "value": "12"
+      "value": 12
     },
     {
       "id": "8su1fcbb-0c32-4b8e-b497-ab9b069181u7",
@@ -38,7 +38,7 @@
     {
       "id": "183cd718-963a-48fd-8f00-16f94a54c3b0",
       "name": "max_temp",
-      "value": "58"
+      "value": 58
     },
     {
       "id": "193cd718-963a-48fd-8f00-16f94a54c3b0",
