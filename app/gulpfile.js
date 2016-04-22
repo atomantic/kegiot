@@ -12,6 +12,20 @@ var server = tinylr();
 // (since we can't install bonescript on osx)
 process.env.MODE = 'desktop';
 
+var files = {
+  js: [
+      'client/js/**/*.js',
+      'server/**/*.js',
+      'test/*.js'
+    ]
+};
+
+gulp.task('lint', function(){
+  return gulp.src(files.js)
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failAfterError());
+});
 
 // --- Basic Tasks ---
 gulp.task('css', function() {
@@ -98,6 +112,12 @@ gulp.task('watch', function() {
       return console.log(err);
     }
 
+    gulp.watch(files.js, ['lint']);
+
+    gulp.watch([
+      'client/js/**/*.js'
+    ], ['js']);
+
     gulp.watch('client/css/*.scss', ['css']);
 
     gulp.watch('client/js/views/libs/*.js', ['jslibs']);
@@ -138,5 +158,5 @@ gulp.task('openbrowser', function() {
 });
 
 // Default Task
-gulp.task('build', ['js', 'jslibs', 'images', 'css', 'clientviews']);
+gulp.task('build', ['lint' ,'js', 'jslibs', 'images', 'css', 'clientviews']);
 gulp.task('default', ['build', 'app', 'watch', 'openbrowser']);

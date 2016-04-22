@@ -1,5 +1,4 @@
 var assert = require("chai").assert;
-var expect = require("chai").expect;
 var rate_limit = require("../server/lib/rate_limit");
 var common = require("../server/lib/common");
 
