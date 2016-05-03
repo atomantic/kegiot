@@ -22,14 +22,15 @@ function runCommand(command, cb) {
   });
 }
 
-function setRow(row, cb) {
-  // console.log('lcd:setRow' + row);
-  runCommand('i2cset -y 1 0x04 0x73 0x63 0x0' + row + ' 0x00 i', cb);
-}
 
 var lcd = {
+
+  setRow: function(row, cb) {
+    // console.log('lcd:setRow' + row);
+    runCommand('i2cset -y 1 0x04 0x73 0x63 0x0' + row + ' 0x00 i', cb);
+  },
   row: function(row, cb) {
-    setRow(row, cb);
+    lcd.setRow(row, cb);
   },
   clear: function(cb) {
     // console.log('lcd:clear');
@@ -62,7 +63,7 @@ var lcd = {
       bytes1 = common.stringToBytes(str.substring(11, 16));
       runCommand('i2cset -y 1 0x04 0x70 0x00 0x00 0x00' + bytes1 + ' i', null);
 
-      setRow(1, null);
+      lcd.setRow(1, null);
       if (str.length > 27) {
         bytes2 = common.stringToBytes(str.substring(16, 27));
         runCommand('i2cset -y 1 0x04 0x70 0x00 0x00 0x00' + bytes2 + ' i', null);
