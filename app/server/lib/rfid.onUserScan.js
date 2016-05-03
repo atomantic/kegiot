@@ -3,6 +3,7 @@ var flowmeter = require('./flowmeter');
 var lcd_msg = require('./lcd_msg');
 var rateLimit = require('./rate_limit');
 var valve = require('./valve');
+var _ = require('./_');
 
 module.exports = function(io){
   return function(user) {
