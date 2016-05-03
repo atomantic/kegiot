@@ -65,7 +65,7 @@ var rateLimit = {
     }
 
     // drink up admins :)
-    if (_.contains(user.roles, 'admin')) {
+    if (user.roles.indexOf('admin')!==-1) {
       return 355;
     }
 
@@ -85,7 +85,7 @@ var rateLimit = {
       date: today
     };
 
-    var usageLogs = common.db.usage.where(logQuery);
+    var usageLogs = common.db.usage.find(logQuery);
     var useToday = 0;
 
     if (usageLogs.length > 1) {
@@ -110,7 +110,7 @@ var rateLimit = {
     console.log('dailyLimit', dailyLimit);
 
     var amountRemaining = dailyLimit - useToday;
-    amountRemaining = amountRemaining.toFixed(2)
+    amountRemaining = amountRemaining.toFixed(2);
 
     console.log('amountRemaining', amountRemaining);
     if (amountRemaining < 1) {
