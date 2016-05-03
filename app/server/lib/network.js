@@ -15,9 +15,9 @@ var ifaces = os.networkInterfaces();
  * @returns String of the IP address
  */
 function getIPAddr(ifname, version) {
-  console.log('network:getIP');
-  console.log('IFname ' + ifname);
-  console.log('Version ' + version);
+  // console.log('network:getIP');
+  // console.log('IFname ' + ifname);
+  // console.log('Version ' + version);
 
   for (var devName in ifaces) {
     if (ifname !== devName) {
@@ -44,7 +44,7 @@ module.exports = {
    * @returns String of the IPv4 address
    */
   getIPv4: function(ifname) {
-    console.log('network:getIPv4');
+    // console.log('network:getIPv4');
     return getIPAddr(ifname, 'IPv4');
   },
 
@@ -54,7 +54,7 @@ module.exports = {
    * @returns String of the IPv6 address
    */
   getIPv6: function(ifname) {
-    console.log('network:getIPv6');
+    // console.log('network:getIPv6');
     return getIPAddr(ifname, 'IPv6');
   },
 
@@ -65,7 +65,7 @@ module.exports = {
    * @returns {iframe: String, address: String, timeset: Integer}
    */
   saveIP: function(iname, addr) {
-    console.log('network.saveIP');
+    // console.log('network.saveIP');
     var ts = new Date().getTime();
     common.db.network
       .chain()
@@ -86,11 +86,10 @@ module.exports = {
    * @returns true if IP address has changed or false if still the same
    */
   isNewIP: function(getIPFunc, ifname) {
-    console.log('network:isNewIP');
+    // console.log('network:isNewIP');
     var prev_net = common.db.network.first();
     var curr_addr = getIPFunc(ifname);
-    console.log('Curr ' + curr_addr);
-    console.log('Prev ' + prev_net.address);
+    console.log('Curr ' + curr_addr, 'Prev ' + prev_net.address);
     return curr_addr !== prev_net.address;
   }
 };
