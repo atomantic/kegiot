@@ -85,7 +85,7 @@ var rateLimit = {
       date: today
     };
 
-    var usageLogs = common.db.usage.find(logQuery);
+    var usageLogs = common.db.usage.find(logQuery) || [];
     var useToday = 0;
 
     if (usageLogs.length > 1) {
