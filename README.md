@@ -51,6 +51,10 @@ echo "bbb ALL=(ALL) ALL" >> /etc/sudoers
 mkdir -p /opt/kegiot
 chown -R bbb:bbb /opt/kegiot
 su bbb
+chsh /bin/bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
+. ~/.bashrc
+nvm install 4.4.5
 ```
 1. Plugin an ethernet cable and USB
 2. Run the BBB install script
