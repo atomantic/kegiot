@@ -41,6 +41,20 @@ You will need to supply your own slack hook URL as an env `SLACKHOOK` if you wan
 
 ## Beagle Bone Black
 
+0. Make sure you have setup a non-root user
+```
+apt-get update
+apt-get install zsh
+useradd bbb
+password bbb
+password root
+echo "bbb ALL=(ALL) ALL" >> /etc/sudoers
+mkdir -p /opt/kegiot
+chown -R bbb:bbb /opt/kegiot
+chsh /usr/bin/zsh
+su bbb
+chsh /usr/bin/zsh
+```
 1. Plugin an ethernet cable and USB
 2. Run the BBB install script
 ```

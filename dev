@@ -48,7 +48,7 @@ if [[ -z $kegiot_IP ]];then
   kegiot_IP=192.168.7.2
 fi
 if [[ -z $kegiot_USER ]];then
-  kegiot_USER=root
+  kegiot_USER=bbb
 fi
 
 case "$1" in
