@@ -48,6 +48,7 @@ useradd bbb
 password bbb
 password root
 echo "bbb ALL=(ALL) ALL" >> /etc/sudoers
+mkhomedir_helper bbb
 mkdir -p /opt/kegiot
 chown -R bbb:bbb /opt/kegiot
 su bbb
